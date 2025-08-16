@@ -1,5 +1,5 @@
 class Event < ApplicationRecord
   def free?
-    price.zero? || price.blank?
+    price.to_f.zero? || price.blank? || price.nil?
   end
 end
