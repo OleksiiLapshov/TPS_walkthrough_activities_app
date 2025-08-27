@@ -16,10 +16,29 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
 
     if @user.save
-      redirect_to user_url(@user), notice: "User has been created!"
+      redirect_to @user, notice: "User has been created!"
     else
       render :new, status: :unprocessable_entity
     end
+  end
+
+  def edit
+    @user = User.find(params[:id])
+  end
+
+  def update
+    @user = User.find(params[:id])
+    if @user.update(user_params)
+      redirect_to @user, notice: "Account details has been updated!"
+    else
+      render :edit, status: :unprocessable_entity
+    end
+  end
+
+  def destroy
+    @user = User.find(params[:id])
+    @user.destroy
+    redirect_to events_url, status: :see_other, alert: "Account deleted!"
   end
 
 private
